@@ -10,16 +10,19 @@ const data = [
   { name: "Mar", value: 20 },
   { name: "Apr", value: 70 },
   { name: "May", value: 40 },
-];
+]; // sample data for representation
 
 const energyData = {
   "Whole Plant": 250,
   "Area 1": 180,
   "Area 2": 90,
   "Area 3": 300,
-};
+}; // sample data for representation
 
 const Dashboard = () => {
+
+  
+
   const [selectedArea, setSelectedArea] = useState("Whole Plant");
 
   return (
@@ -31,7 +34,7 @@ const Dashboard = () => {
         
         {/* Section 1 - tbd*/}
         <div className="bg-[#1a1c1e] p-4 rounded-lg shadow-lg md:col-span-2">
-          <h2 className="text-lg font-bold">Section 1</h2>
+          <h2 className="text-lg font-semibold">Section 1</h2>
           <p>TBD</p>
         </div>
 
@@ -59,7 +62,7 @@ const Dashboard = () => {
         <div className="md:col-span-2 flex flex-col gap-4">
           {/* Section 3.1 - dropdown*/}
           <div className="bg-[#23272a] p-4 rounded-lg shadow-lg flex flex-col items-center">
-            <h2 className="text-lg font-bold">Select Area</h2>
+            <h2 className="text-lg font-semibold">Select Area</h2>
             <select
               className="bg-[#38b137] text-white p-2 rounded-md cursor-pointer mt-2 w-full"
               value={selectedArea}
@@ -77,7 +80,7 @@ const Dashboard = () => {
             <div className="bg-gray-800 p-4 rounded-md w-full text-center mt-2">
               <p className="text-lg">
                 <span className="font-bold">{selectedArea}</span>: 
-                <span className="text-[#38b137] font-bold"> {energyData[selectedArea]} kWh</span>
+                <span className="text-[#38b137] font-semibold"> {energyData[selectedArea]} kWh</span>
               </p>
             </div>
           </div>
