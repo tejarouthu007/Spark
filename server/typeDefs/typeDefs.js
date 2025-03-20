@@ -93,6 +93,61 @@ const typeDefs = gql`
         INFO
         ERROR
     }
+
+    type Query {
+        # fetch device by ID
+        getDevice(id: Int!): Device
+
+        # all devices
+        getAllDevices: [Device!]!
+
+        # channel by ID
+        getChannel(id: Int!): Channel
+
+        # all channels
+        getAllChannels: [Channel!]!
+
+        # data by ID or by channel ID
+        getData(id: Int!): Data
+        getDataByChannel(channel_id: Int!): [Data!]!
+
+        # user by ID
+        getUser(id: Int!): User
+        # all users
+        getAllUsers: [User!]!
+
+        # system configuration by key
+        getSystemConfiguration(config_key: String!): SystemConfiguration
+
+        # all system configurations
+        getAllSystemConfigurations: [SystemConfiguration!]!
+
+        # energy production by ID or device ID
+        getEnergyProduction(id: Int!): EnergyProduction
+        getEnergyProductionByDevice(device_id: Int!): [EnergyProduction!]!
+
+        # energy consumption by ID or device ID
+        getEnergyConsumption(id: Int!): EnergyConsumption
+        getEnergyConsumptionByDevice(device_id: Int!): [EnergyConsumption!]!
+
+        # energy storage by ID or device ID
+        getEnergyStorage(id: Int!): EnergyStorage
+        getEnergyStorageByDevice(device_id: Int!): [EnergyStorage!]!
+
+        # events by ID or device ID
+        getEvent(id: Int!): Event
+        getEventsByDevice(device_id: Int!): [Event!]!
+
+        # all events
+        getAllEvents: [Event!]!
+
+        # logs by ID or log level
+        getLog(id: Int!): Log
+        getLogsByLevel(log_level: LogLevel!): [Log!]!
+        
+        # all logs
+        getAllLogs: [Log!]!
+    }
 `;
 
 export default typeDefs;
