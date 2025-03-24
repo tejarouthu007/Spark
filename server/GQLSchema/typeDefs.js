@@ -1,4 +1,4 @@
-import { gql } from "@apollo/server";
+const { gql } =  require("graphql-tag");
 
 const typeDefs = gql`
     scalar JSON
@@ -150,4 +150,4 @@ const typeDefs = gql`
     }
 `;
 
-export default typeDefs;
+module.exports =  typeDefs;

@@ -1,51 +1,128 @@
-import { JSONResolver, DateTimeResolver } from "graphql-scalars";
+const { JSONResolver, DateTimeResolver } = require("graphql-scalars");
+const mysql = require("mysql2/promise")
+
+const dbpool = mysql.createPool({
+    host: 'localhost',
+    user: 'graphql_user',
+    password: 'graphql',
+    database: 'openems',
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+});
 
 const resolvers = {
     JSON: JSONResolver,
     DateTime: DateTimeResolver,
     Query: {
         // Device Resolvers
-        getDevice: (_, { id }) => null, // TODO: Fetch device by ID
-        getAllDevices: () => [], // TODO: Fetch all devices
+        getDevice: async (_, { id }) => {
+            const [rows] = await dbpool.query("SELECT * FROM devices WHERE id = ?", [id]);
+            return rows[0] || null;
+        },
+        getAllDevices: async () => {
+            const [rows] = await dbpool.query("SELECT * FROM devices");
+            return rows;
+        },
 
         // Channel Resolvers
-        getChannel: (_, { id }) => null, // TODO: Fetch channel by ID
-        getAllChannels: () => [], // TODO: Fetch all channels
+        getChannel: async (_, { id }) => {
+            const [rows] = await dbpool.query("SELECT * FROM channels WHERE id = ?", [id]);
+            return rows[0] || null;
+        },
+        getAllChannels: async () => {
+            const [rows] = await dbpool.query("SELECT * FROM channels");
+            return rows;
+        },
 
         // Data Resolvers
-        getData: (_, { id }) => null, // TODO: Fetch data by ID
-        getDataByChannel: (_, { channel_id }) => [], // TODO: Fetch all data by channel ID
+        getData: async (_, { id }) => {
+            const [rows] = await dbpool.query("SELECT * FROM data WHERE id = ?", [id]);
+            return rows[0] || null;
+        },
+        getDataByChannel: async (_, { channel_id }) => {
+            const [rows] = await dbpool.query("SELECT * FROM data WHERE channel_id = ?", [channel_id]);
+            return rows;
+        },
 
         // User Resolvers
-        getUser: (_, { id }) => null, // TODO: Fetch user by ID
-        getAllUsers: () => [], // TODO: Fetch all users
+        getUser: async (_, { id }) => {
+            const [rows] = await dbpool.query("SELECT * FROM users WHERE id = ?", [id]);
+            return rows[0] || null;
+        },
+        getAllUsers: async () => {
+            const [rows] = await dbpool.query("SELECT * FROM users");
+            return rows;
+        },
 
         // System Configuration Resolvers
-        getSystemConfiguration: (_, { config_key }) => null, // TODO: Fetch system config by key
-        getAllSystemConfigurations: () => [], // TODO: Fetch all system configs
+        getSystemConfiguration: async (_, { config_key }) => {
+            const [rows] = await dbpool.query("SELECT * FROM system_configuration WHERE config_key = ?", [config_key]);
+            return rows[0] || null;
+        },
+        getAllSystemConfigurations: async () => {
+            const [rows] = await dbpool.query("SELECT * FROM system_configuration");
+            return rows;
+        },
 
         // Energy Production Resolvers
-        getEnergyProduction: (_, { id }) => null, // TODO: Fetch energy production by ID
-        getEnergyProductionByDevice: (_, { device_id }) => [], // TODO: Fetch by device ID
+        getEnergyProduction: async (_, { id }) => {
+            const [rows] = await dbpool.query("SELECT * FROM energy_production WHERE id = ?", [id]);
+            return rows[0] || null;
+        },
+        getEnergyProductionByDevice: async (_, { device_id }) => {
+            const [rows] = await dbpool.query("SELECT * FROM energy_production WHERE device_id = ?", [device_id]);
+            return rows;
+        },
 
         // Energy Consumption Resolvers
-        getEnergyConsumption: (_, { id }) => null, // TODO: Fetch energy consumption by ID
-        getEnergyConsumptionByDevice: (_, { device_id }) => [], // TODO: Fetch by device ID
+        getEnergyConsumption: async (_, { id }) => {
+            const [rows] = await dbpool.query("SELECT * FROM energy_consumption WHERE id = ?", [id]);
+            return rows[0] || null;
+        },
+        getEnergyConsumptionByDevice: async (_, { device_id }) => {
+            const [rows] = await dbpool.query("SELECT * FROM energy_consumption WHERE device_id = ?", [device_id]);
+            return rows;
+        },
 
         // Energy Storage Resolvers
-        getEnergyStorage: (_, { id }) => null, // TODO: Fetch energy storage by ID
-        getEnergyStorageByDevice: (_, { device_id }) => [], // TODO: Fetch by device ID
+        getEnergyStorage: async (_, { id }) => {
+            const [rows] = await dbpool.query("SELECT * FROM energy_storage WHERE id = ?", [id]);
+            return rows[0] || null;
+        },
+        getEnergyStorageByDevice: async (_, { device_id }) => {
+            const [rows] = await dbpool.query("SELECT * FROM energy_storage WHERE device_id = ?", [device_id]);
+            return rows;
+        },
 
         // Event Resolvers
-        getEvent: (_, { id }) => null, // TODO: Fetch event by ID
-        getEventsByDevice: (_, { device_id }) => [], // TODO: Fetch events by device ID
-        getAllEvents: () => [], // TODO: Fetch all events
+        getEvent: async (_, { id }) => {
+            const [rows] = await dbpool.query("SELECT * FROM events WHERE id = ?", [id]);
+            return rows[0] || null;
+        },
+        getEventsByDevice: async (_, { device_id }) => {
+            const [rows] = await dbpool.query("SELECT * FROM events WHERE device_id = ?", [device_id]);
+            return rows;
+        },
+        getAllEvents: async () => {
+            const [rows] = await dbpool.query("SELECT * FROM events");
+            return rows;
+        },
 
         // Log Resolvers
-        getLog: (_, { id }) => null, // TODO: Fetch log by ID
-        getLogsByLevel: (_, { log_level }) => [], // TODO: Fetch logs by level
-        getAllLogs: () => [], // TODO: Fetch all logs
+        getLog: async (_, { id }) => {
+            const [rows] = await dbpool.query("SELECT * FROM logs WHERE id = ?", [id]);
+            return rows[0] || null;
+        },
+        getLogsByLevel: async (_, { log_level }) => {
+            const [rows] = await dbpool.query("SELECT * FROM logs WHERE log_level = ?", [log_level]);
+            return rows;
+        },
+        getAllLogs: async () => {
+            const [rows] = await dbpool.query("SELECT * FROM logs");
+            return rows;
+        },
     }
 };
 
-export default resolvers;
+module.exports = resolvers;
