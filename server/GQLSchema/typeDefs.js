@@ -148,6 +148,22 @@ const typeDefs = gql`
         # all logs
         getAllLogs: [Log!]!
     }
+
+    type Mutation {
+        # Device Mutations
+        createDevice(name: String!, type: String!, manufacturer: String, model: String, serial_number: String, configuration: JSON): Device
+        updateDevice(id: Int!, name: String, type: String, manufacturer: String, model: String, serial_number: String, configuration: JSON): Device
+        deleteDevice(id: Int!): Boolean
+
+        # User Mutations
+        createUser(username: String!, password_hash: String!, role: Role!): User
+        updateUser(id: Int!, username: String, password_hash: String, role: Role): User
+        deleteUser(id: Int!): Boolean
+
+        # Log Mutations
+        createLog(timestamp: DateTime!, log_level: LogLevel!, message: String!): Log
+        deleteLog(id: Int!): Boolean
+    }
 `;
 
 module.exports =  typeDefs;
