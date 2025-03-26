@@ -155,10 +155,35 @@ const typeDefs = gql`
         updateDevice(id: Int!, name: String, type: String, manufacturer: String, model: String, serial_number: String, configuration: JSON): Device
         deleteDevice(id: Int!): Boolean
 
+        # Channel Mutations
+        createChannel(device_id: Int!, name: String!, unit: String, description: String): Channel
+        updateChannel(id: Int!, name: String, unit: String, description: String): Channel
+        deleteChannel(id: Int!): Boolean
+
+        # Data Mutations
+        createData(channel_id: Int!, timestamp: DateTime!, value: Float!): Data
+        deleteData(id: Int!): Boolean
+
         # User Mutations
         createUser(username: String!, password_hash: String!, role: Role!): User
         updateUser(id: Int!, username: String, password_hash: String, role: Role): User
         deleteUser(id: Int!): Boolean
+
+        # System Configuration Mutations
+        updateSystemConfiguration(config_key: String!, config_value: String): SystemConfiguration
+        deleteSystemConfiguration(id: Int!): Boolean
+
+        # Energy Production/Consumption Mutations
+        createEnergyProduction(device_id: Int!, timestamp: DateTime!, energy_produced: Float!): EnergyProduction
+        createEnergyConsumption(device_id: Int!, timestamp: DateTime!, energy_consumed: Float!): EnergyConsumption
+        createEnergyStorage(device_id: Int!, timestamp: DateTime!, state_of_charge: Float!, energy_stored: Float!): EnergyStorage
+        deleteEnergyProduction(id: Int!): Boolean
+        deleteEnergyConsumption(id: Int!): Boolean
+        deleteEnergyStorage(id: Int!): Boolean
+
+        # Event Mutations
+        createEvent(timestamp: DateTime!, event_type: EventType!, message: String, device_id: Int): Event
+        deleteEvent(id: Int!): Boolean
 
         # Log Mutations
         createLog(timestamp: DateTime!, log_level: LogLevel!, message: String!): Log
